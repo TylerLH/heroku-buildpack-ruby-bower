@@ -21,7 +21,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   LEGACY_JVM_VERSION   = "openjdk1.7.0_25"
   DEFAULT_RUBY_VERSION = "ruby-2.0.0"
   RBX_BASE_URL         = "http://binaries.rubini.us/heroku"
-  BOWER_VERSION        = "1.2.8"
+  BOWER_VERSION        = "1.2.7"
   BOWER_BASE_URL       = "http://heroku-buildpack-ruby-bower.s3.amazonaws.com"
   NODE_JS_VERSION      = "0.10.21"
   NODE_JS_BASE_URL     = "http://heroku-buildpack-nodejs.s3.amazonaws.com"
@@ -602,8 +602,7 @@ ERROR
     log("bower") do
       topic("Installing JavaScript dependencies using Bower #{BOWER_VERSION}")
       
-      puts "Cleaning up the Bower tmp."
-      FileUtils.rm_rf("vendor/bower/tmp")
+      pipe("./node_modules/bower/bin/bower cache clean")
       pipe("./node_modules/bower/bin/bower install 2>&1")
       unless $?.success?
         error error_message
