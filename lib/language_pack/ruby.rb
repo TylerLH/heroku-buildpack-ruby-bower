@@ -601,7 +601,9 @@ ERROR
 
     log("bower") do
       topic("Installing JavaScript dependencies using Bower #{BOWER_VERSION}")
-
+      
+      puts "Cleaning up the Bower tmp."
+      FileUtils.rm_rf("vendor/bower/tmp")
       pipe("./node_modules/bower/bin/bower install 2>&1")
       unless $?.success?
         error error_message
