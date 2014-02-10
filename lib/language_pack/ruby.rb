@@ -612,7 +612,9 @@ ERROR
 
     log("bower") do
       topic("Installing JavaScript dependencies using Bower #{BOWER_VERSION}")
-
+      
+      puts "Clearing Bower cache.."
+      run("./node_modules/bower/bin/bower cache clean")
       load_bower_cache
 
       pipe("./node_modules/bower/bin/bower install --config.storage.packages=vendor/bower/packages --config.storage.registry=vendor/bower/registry --config.tmp=vendor/bower/tmp 2>&1")
